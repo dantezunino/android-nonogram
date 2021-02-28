@@ -1,0 +1,67 @@
+<MyLayout>:
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.width, root.height    
+        Carousel:
+            id:caruso
+            loop:True    
+            GridLayout:
+                cols: 2
+                Button:
+                    text:"Fácil (5)"
+                    on_release: root.facil()
+                Button:
+                    text:"Normal (10)"
+                    on_release: root.normal()
+                Button:
+                    text:"Difícil (15)"
+                    on_release: root.dificil()
+                Button:
+                    text:"Estúpido (20)"
+                    on_release: root.estupido()
+            BoxLayout:
+                orientation: 'vertical'
+                BoxLayout:
+                    size: root.width, root.height
+                    orientation: 'vertical'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        BoxLayout:
+                            size_hint: (1, 0.3)
+                            orientation: 'horizontal'
+                            Button:
+                                size_hint: (0.2, 1)
+                                text:"X"
+                                on_press: caruso.load_previous()
+                            BoxLayout:
+                                orientation:'horizontal'
+                                id:col_label_row
+                                size_hint: (0.8, 1)
+                        BoxLayout:
+                            size_hint: (1, 0.7)
+                            orientation: 'horizontal'
+                            BoxLayout:
+                                orientation: 'vertical'
+                                id:fil_label_row
+                                size_hint: (0.2, 1)
+                            GridLayout:
+                                id:proper_tabla
+                                cols:5
+                                size_hint: (0.8, 1)
+                            
+                    Label:
+                        size_hint: (1, 0.05)
+                        text:""
+                    BoxLayout:
+                        size_hint: (0.3, 0.1)
+                        pos_hint: {'center_x': 0.5}
+                        orientation: 'horizontal'
+                        Button:
+                            id:button_o
+                            text:"O"
+                            disabled:True
+                            on_release:root.toggleSim("O")
+                        Button:
+                            id:button_x
+                            text:"X"
+                            on_release:root.toggleSim("X")
