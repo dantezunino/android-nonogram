@@ -85,9 +85,10 @@ def good_button(a):
         a.text=""
         a.background_disabled_normal=""
         a.background_disabled_down=""
-        a.background_color= get_random_color()
+        rc = get_random_color()
+        yu = (rc[0]+0.2, rc[1]+0.2, rc[2]+0.2, rc[3])
+        a.background_color= yu
         a.disabled=True
-        print(win_condition[0])
         win_condition[0] -= 1
         if win_condition[0] == 0:
             MyLayout.victory(MyLayout)
@@ -96,7 +97,8 @@ def good_button(a):
 
 def bad_button(a):
     if action[0] == "O":
-        a.text="ERROR"
+        a.text="X"
+        a.disabled=True
         MyLayout.lose(MyLayout)
     if action[0] == "X":
         a.text = "X"     
@@ -233,7 +235,7 @@ class MyApp(App):
         view = ModalView(size_hint=(None, None), size=(350, 500))
         box = BoxLayout(orientation='vertical')
         winLabel = Label(text="Bienvenido. Si nunca jugaste a esto, las reglas son sencillas!", text_size=(300, 150), valign="middle")
-        secLabel = Label(text="1: Los números en filas y columnas indican la cantidad de casilleros contigüos a presionar.", text_size=(300, 150), valign="middle")
+        secLabel = Label(text="1: Los números en filas y columnas indican la cantidad de casilleros contiguos a presionar.", text_size=(300, 150), valign="middle")
         terLabel = Label(text="Esas son las reglas :)", text_size=(300, 150), valign="middle")
         box.add_widget(winLabel)
         box.add_widget(secLabel)
