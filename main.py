@@ -6,6 +6,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.modalview import ModalView
+from kivy.utils import get_random_color
 import random
 import string
 
@@ -82,6 +83,9 @@ def table_params(primary_bitlist, table_root):
 def good_button(a):
     if action[0] == "O":
         a.text=""
+        a.background_disabled_normal=""
+        a.background_disabled_down=""
+        a.background_color= get_random_color()
         a.disabled=True
         print(win_condition[0])
         win_condition[0] -= 1
@@ -98,6 +102,26 @@ def bad_button(a):
         a.text = "X"     
 
 class MyLayout(Widget):
+    def __init__(self, **kwargs):
+        super(MyLayout, self).__init__(**kwargs)
+        self.ids.btn1.background_color = get_random_color()
+        self.ids.btn2.background_color = get_random_color()
+        self.ids.btn3.background_color = get_random_color()
+        self.ids.btn4.background_color = get_random_color()
+        self.ids.btn5.background_color = get_random_color()
+        self.ids.btn6.background_color = get_random_color()
+        self.ids.btn_x.background_color = get_random_color()
+
+    def back(self):
+        self.ids.btn1.background_color = get_random_color()
+        self.ids.btn2.background_color = get_random_color()
+        self.ids.btn3.background_color = get_random_color()
+        self.ids.btn4.background_color = get_random_color()
+        self.ids.btn5.background_color = get_random_color()
+        self.ids.btn6.background_color = get_random_color()
+        self.ids.caruso.load_previous()
+        self.ids.btn_x.background_color = get_random_color()
+
     def victory(self):
         view = ModalView(size_hint=(None, None), size=(180, 120))
         winLabel = Label(text="GANASTE")
@@ -106,9 +130,16 @@ class MyLayout(Widget):
     
     def lose(self):
         view = ModalView(size_hint=(None, None), size=(180, 120))
-        loseLabel = Label(text="TEQUIVOCASTE")
+        loseLabel = Label(text="MISS-CLICK, OOPS")
         view.add_widget(loseLabel)
         view.open()
+
+    def bebe(self):
+        word = randomizer(4)
+        primary_bitlist = bit_sec(word, 16)
+        set_wincondition(primary_bitlist)
+        final_bitlist = table_params(primary_bitlist, 4)
+        self.game(4, primary_bitlist, final_bitlist, 20)
 
     def facil(self):
         word = randomizer(4)
@@ -118,25 +149,32 @@ class MyLayout(Widget):
         self.game(5, primary_bitlist, final_bitlist, 18)
     
     def normal(self):
-        word = randomizer(15)
+        word = randomizer(12)
+        primary_bitlist = bit_sec(word, 64)
+        set_wincondition(primary_bitlist)
+        final_bitlist = table_params(primary_bitlist, 8)
+        self.game(8, primary_bitlist, final_bitlist, 16)
+
+    def dificil(self):
+        word = randomizer(25)
         primary_bitlist = bit_sec(word, 100)
         set_wincondition(primary_bitlist)
         final_bitlist = table_params(primary_bitlist, 10)
         self.game(10, primary_bitlist, final_bitlist, 14)
+    
+    def muydificil(self):
+        word = randomizer(30)
+        primary_bitlist = bit_sec(word, 144)
+        set_wincondition(primary_bitlist)
+        final_bitlist = table_params(primary_bitlist, 12)
+        self.game(12, primary_bitlist, final_bitlist, 12)
 
-    def dificil(self):
+    def estupido(self):
         word = randomizer(33)
         primary_bitlist = bit_sec(word, 225)
         set_wincondition(primary_bitlist)
         final_bitlist = table_params(primary_bitlist, 15)
         self.game(15, primary_bitlist, final_bitlist, 10)
-
-    def estupido(self):
-        word = randomizer(58)
-        primary_bitlist = bit_sec(word, 400)
-        set_wincondition(primary_bitlist)
-        final_bitlist = table_params(primary_bitlist, 20)
-        self.game(20, primary_bitlist, final_bitlist, 8)
     
     def clean(self):
         self.ids.proper_tabla.clear_widgets()
@@ -166,10 +204,10 @@ class MyLayout(Widget):
         self.ids.proper_tabla.cols = cols
         for bitbit in primary_bitlist:
             if bitbit == "0":
-                btn = Button(text=" ", background_down="", background_color=(1,1,1,1), on_release=bad_button)
+                btn = Button(text=" ", background_down="", background_color=(0.3,0.3,0.3,1), on_release=bad_button)
                 self.ids.proper_tabla.add_widget(btn)
             else:
-                btn = Button(text=" ", background_down="", background_color=(1,1,1,1), on_release=good_button)
+                btn = Button(text=" ", background_down="", background_color=(0.3,0.3,0.3,1), on_release=good_button)
                 self.ids.proper_tabla.add_widget(btn)
         for h in range(cols):
             text_L = final_bitlist[1][h]
@@ -190,6 +228,18 @@ class MyApp(App):
         Builder.load_file("interface.kv")
         self.title = "R-Nonogram"
         return MyLayout()
+    
+    def on_start(self):
+        view = ModalView(size_hint=(None, None), size=(250, 400))
+        box = BoxLayout(orientation='vertical')
+        winLabel = Label(text="Bienvenido. Si nunca jugaste a esto, las reglas son sencillas!", text_size=(200, 130), valign="middle")
+        secLabel = Label(text="1: Los números en filas y columnas indican la cantidad de casilleros contigüos a presionar.", text_size=(200, 130), valign="middle")
+        terLabel = Label(text="Esas son las reglas :)", text_size=(200, 130), valign="middle")
+        box.add_widget(winLabel)
+        box.add_widget(secLabel)
+        box.add_widget(terLabel)
+        view.add_widget(box)
+        view.open()
 
 if __name__ == "__main__":
     MyApp().run()

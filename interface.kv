@@ -8,16 +8,28 @@
             GridLayout:
                 cols: 2
                 Button:
+                    id:btn1
+                    text:"Bebé (4)"
+                    on_release: root.bebe()
+                Button:
+                    id:btn2
                     text:"Fácil (5)"
                     on_release: root.facil()
                 Button:
-                    text:"Normal (10)"
+                    id:btn3
+                    text:"Normal (8)"
                     on_release: root.normal()
                 Button:
-                    text:"Difícil (15)"
+                    id:btn4
+                    text:"Difícil (10)"
                     on_release: root.dificil()
                 Button:
-                    text:"Estúpido (20)"
+                    id:btn5
+                    text:"Muy Difícil (12)"
+                    on_release: root.muydificil()
+                Button:
+                    id:btn6
+                    text:"Noentraenlapantalla (15)"
                     on_release: root.estupido()
             BoxLayout:
                 orientation: 'vertical'
@@ -30,9 +42,10 @@
                             size_hint: (1, 0.3)
                             orientation: 'horizontal'
                             Button:
+                                id:btn_x
                                 size_hint: (0.2, 1)
                                 text:"X"
-                                on_press: caruso.load_previous()
+                                on_press: root.back()
                             BoxLayout:
                                 orientation:'horizontal'
                                 id:col_label_row
