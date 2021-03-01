@@ -123,13 +123,13 @@ class MyLayout(Widget):
         self.ids.btn_x.background_color = get_random_color()
 
     def victory(self):
-        view = ModalView(size_hint=(None, None), size=(180, 120))
+        view = ModalView(size_hint=(None, None), size=(240, 180))
         winLabel = Label(text="GANASTE")
         view.add_widget(winLabel)
         view.open()
     
     def lose(self):
-        view = ModalView(size_hint=(None, None), size=(180, 120))
+        view = ModalView(size_hint=(None, None), size=(240, 180))
         loseLabel = Label(text="MISS-CLICK, OOPS")
         view.add_widget(loseLabel)
         view.open()
@@ -230,11 +230,11 @@ class MyApp(App):
         return MyLayout()
     
     def on_start(self):
-        view = ModalView(size_hint=(None, None), size=(250, 400))
+        view = ModalView(size_hint=(None, None), size=(350, 500))
         box = BoxLayout(orientation='vertical')
-        winLabel = Label(text="Bienvenido. Si nunca jugaste a esto, las reglas son sencillas!", text_size=(200, 130), valign="middle")
-        secLabel = Label(text="1: Los números en filas y columnas indican la cantidad de casilleros contigüos a presionar.", text_size=(200, 130), valign="middle")
-        terLabel = Label(text="Esas son las reglas :)", text_size=(200, 130), valign="middle")
+        winLabel = Label(text="Bienvenido. Si nunca jugaste a esto, las reglas son sencillas!", text_size=(300, 150), valign="middle")
+        secLabel = Label(text="1: Los números en filas y columnas indican la cantidad de casilleros contigüos a presionar.", text_size=(300, 150), valign="middle")
+        terLabel = Label(text="Esas son las reglas :)", text_size=(300, 150), valign="middle")
         box.add_widget(winLabel)
         box.add_widget(secLabel)
         box.add_widget(terLabel)
