@@ -115,11 +115,14 @@ def add_text(a, tx):
     new_text = a
     tx.text = tx.text + new_text
 
+def rem_text(a, tx):
+    tx.text = a
+
 def compute(view, tx, btok):
     custom_table.remove(custom_table[0])
     num = int(tx)
     custom_table.append(num)
-    btok.text = "Dificultad: (" + str(num) + ")"
+    btok.text = "Dificultad: \n(" + str(num) + ")"
 
 
     view.dismiss()
@@ -134,6 +137,7 @@ class MyLayout(Widget):
         self.ids.btn4.background_color = get_random_color()
         self.ids.btn5.background_color = get_random_color()
         self.ids.btn6.background_color = get_random_color()
+        self.ids.btn7.background_color = get_random_color()
         self.ids.btn_x.background_color = get_random_color()
 
     def back(self):
@@ -143,6 +147,7 @@ class MyLayout(Widget):
         self.ids.btn4.background_color = get_random_color()
         self.ids.btn5.background_color = get_random_color()
         self.ids.btn6.background_color = get_random_color()
+        self.ids.btn7.background_color = get_random_color()
         self.ids.caruso.load_previous()
         self.ids.btn_x.background_color = get_random_color()
 
@@ -180,9 +185,9 @@ class MyLayout(Widget):
         r_box.add_widget(Button(text="7", on_press=lambda a:add_text("7",tx)))
         r_box.add_widget(Button(text="8", on_press=lambda a:add_text("8",tx)))
         r_box.add_widget(Button(text="9", on_press=lambda a:add_text("9",tx)))
-        r_box.add_widget(Button(text="", background_color=(0,0,0,1)))
+        r_box.add_widget(Button(text="", background_color=(0.1,0.1,0.1,1), on_press=lambda a:rem_text("0",tx)))
         r_box.add_widget(Button(text="0", on_press=lambda a:add_text("0",tx)))
-        r_box.add_widget(Button(text="", background_color=(0,0,0,1)))
+        r_box.add_widget(Button(text="", background_color=(0.1,0.1,0.1,1), on_press=lambda a:rem_text("0",tx)))
         box.add_widget(tx)
         box.add_widget(okbtn)
         s_box = BoxLayout(orientation='horizontal')
@@ -268,10 +273,10 @@ class MyLayout(Widget):
         self.ids.proper_tabla.cols = cols
         for bitbit in primary_bitlist:
             if bitbit == "0":
-                btn = Button(text=" ", background_down="", background_color=(0.3,0.3,0.3,1), on_release=bad_button)
+                btn = Button(text=" ", background_down="", background_color=(0.35,0.35,0.35,1), on_release=bad_button)
                 self.ids.proper_tabla.add_widget(btn)
             else:
-                btn = Button(text=" ", background_down="", background_color=(0.3,0.3,0.3,1), on_release=good_button)
+                btn = Button(text=" ", background_down="", background_color=(0.35,0.35,0.35,1), on_release=good_button)
                 self.ids.proper_tabla.add_widget(btn)
         for h in range(cols):
             text_L = final_bitlist[1][h]
