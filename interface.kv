@@ -5,32 +5,45 @@
         Carousel:
             id:caruso
             loop:True    
-            GridLayout:
-                cols: 2
+            BoxLayout:
+                orientation: 'vertical'
+                GridLayout:
+                    cols: 2
+                    Button:
+                        id:btn1
+                        text:"Bebé (4)"
+                        on_release: root.bebe()
+                    Button:
+                        id:btn2
+                        text:"Fácil (5)"
+                        on_release: root.facil()
+                    Button:
+                        id:btn3
+                        text:"Normal (8)"
+                        on_release: root.normal()
+                    Button:
+                        id:btn4
+                        text:"Difícil (10)"
+                        on_release: root.dificil()
+                    Button:
+                        id:btn5
+                        text:"Muy Difícil (12)"
+                        on_release: root.muydificil()
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        Button:
+                            id:btn6
+                            text:"Custom"
+                            on_release: root.custom()
+                        Button:
+                            id:btn7
+                            text:"OK"
+                            on_release: root.customOK()
                 Button:
-                    id:btn1
-                    text:"Bebé (4)"
-                    on_release: root.bebe()
-                Button:
-                    id:btn2
-                    text:"Fácil (5)"
-                    on_release: root.facil()
-                Button:
-                    id:btn3
-                    text:"Normal (8)"
-                    on_release: root.normal()
-                Button:
-                    id:btn4
-                    text:"Difícil (10)"
-                    on_release: root.dificil()
-                Button:
-                    id:btn5
-                    text:"Muy Difícil (12)"
-                    on_release: root.muydificil()
-                Button:
-                    id:btn6
-                    text:"Noentraenlapantalla (15)"
-                    on_release: root.estupido()
+                    size_hint: (1, 0.1)
+                    text: "Reglas"
+                    background_color:(0.1,0.1,0.1,1)
+                    on_press: caruso.load_previous()
             BoxLayout:
                 orientation: 'vertical'
                 BoxLayout:
@@ -78,3 +91,44 @@
                             id:button_x
                             text:"X"
                             on_release:root.toggleSim("X")
+            BoxLayout:
+                orientation: 'vertical'
+                Label: 
+                    size_hint: (1, 0.5)
+                    text: "Bienvenido."
+                    text_size: self.size
+                    valign: 'top'
+                    halign: 'center'
+                Label:
+                    size_hint: (1, 0.5)
+                    text: "Las reglas del juego son las siguientes:"
+                    text_size: self.size
+                    valign: 'top'
+                    halign: 'center'
+                Label:
+                    text: "1 - Cada número en fila indica la cantidad de casilleros de color continuos en esa fila. Por ejemplo <2 3> indica que en esa fila hay dos casilleros correctos primero, AL MENOS un espacio vacío y luego 3 casilleros correctos."
+                    text_size: self.size
+                    valign: 'top'
+                    halign: 'center'
+                Label:
+                    text: "2 - Cada número en columna indica lo mismo que lo de las filas, pero para las columnas."
+                    text_size: self.size
+                    valign: 'top'
+                    halign: 'center'
+                Label:
+                    text: "3 - Para ganar hay que presionar TODOS los casilleros de color correctos."
+                    text_size: self.size
+                    valign: 'top'
+                    halign: 'center'
+                Label:
+                    text: "4 - Para ayudarte puedes cambiar el input con el switch debajo del tablero. El O indica un casillero de color, y la X es un marcador para que sepas donde NO hay casillero de color."
+                    text_size: self.size
+                    valign: 'top'
+                    halign: 'center'
+                Label:
+                    text: "Por la imposibilidad que presenta generar Nonogramas de forma aleatoria, sin intervención humana, más de una vez te ocurrirá que hay soluciones ambiguas, aunque sólo una sea correcta. No te desmoralices, no se puede perder en este juego. El dar con un casillero incorrecto se considera un mero miss-click :)"
+                    text_size: self.size
+                    valign: 'middle'
+                    halign: 'center'
+
+<Proper_Tabla>

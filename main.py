@@ -5,6 +5,7 @@ from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.textinput import TextInput
 from kivy.uix.modalview import ModalView
 from kivy.utils import get_random_color
 import random
@@ -14,6 +15,7 @@ __version__ = "1.2"
 
 action = ["O"]
 win_condition = [0]
+custom_table = [0]
 
 def set_wincondition(bitlist):
     for num in bitlist:
@@ -93,7 +95,10 @@ def good_button(a):
         if win_condition[0] == 0:
             MyLayout.victory(MyLayout)
     if action[0] == "X":
-        a.text = "X"
+        if a.text == "X":
+            a.text = " "
+        else:
+            a.text = "X"
 
 def bad_button(a):
     if action[0] == "O":
@@ -101,7 +106,24 @@ def bad_button(a):
         a.disabled=True
         MyLayout.lose(MyLayout)
     if action[0] == "X":
-        a.text = "X"     
+        if a.text == "X":
+            a.text = " "
+        else:
+            a.text = "X"    
+
+def add_text(a, tx):
+    new_text = a
+    tx.text = tx.text + new_text
+
+def compute(view, tx, btok):
+    custom_table.remove(custom_table[0])
+    num = int(tx)
+    custom_table.append(num)
+    btok.text = "Dificultad: (" + str(num) + ")"
+
+
+    view.dismiss()
+
 
 class MyLayout(Widget):
     def __init__(self, **kwargs):
@@ -142,6 +164,46 @@ class MyLayout(Widget):
         set_wincondition(primary_bitlist)
         final_bitlist = table_params(primary_bitlist, 4)
         self.game(4, primary_bitlist, final_bitlist, 20)
+
+    def custom(self):
+        view = ModalView(size_hint=(0.9, 0.5))
+        box = BoxLayout(orientation='vertical')
+        r_box = GridLayout(cols=3)
+        tx = TextInput(text="0")
+        okbtn = Button(text="OK")
+        r_box.add_widget(Button(text="1", on_press=lambda a:add_text("1",tx)))
+        r_box.add_widget(Button(text="2", on_press=lambda a:add_text("2",tx)))
+        r_box.add_widget(Button(text="3", on_press=lambda a:add_text("3",tx)))
+        r_box.add_widget(Button(text="4", on_press=lambda a:add_text("4",tx)))
+        r_box.add_widget(Button(text="5", on_press=lambda a:add_text("5",tx)))
+        r_box.add_widget(Button(text="6", on_press=lambda a:add_text("6",tx)))
+        r_box.add_widget(Button(text="7", on_press=lambda a:add_text("7",tx)))
+        r_box.add_widget(Button(text="8", on_press=lambda a:add_text("8",tx)))
+        r_box.add_widget(Button(text="9", on_press=lambda a:add_text("9",tx)))
+        r_box.add_widget(Button(text="", background_color=(0,0,0,1)))
+        r_box.add_widget(Button(text="0", on_press=lambda a:add_text("0",tx)))
+        r_box.add_widget(Button(text="", background_color=(0,0,0,1)))
+        box.add_widget(tx)
+        box.add_widget(okbtn)
+        s_box = BoxLayout(orientation='horizontal')
+        s_box.add_widget(box)
+        s_box.add_widget(r_box)
+        view.add_widget(s_box)
+        okbtn.bind(on_press=lambda a:compute(view, tx.text, self.ids.btn7))
+        view.open()
+
+    def customOK(self):
+        if custom_table[0] != 0:
+            num = custom_table[0]
+            squarenum = num*num
+            ran = round(squarenum/3, 0)
+            word = randomizer(int(ran))
+            primary_bitlist = bit_sec(word, squarenum)
+            set_wincondition(primary_bitlist)
+            final_bitlist = table_params(primary_bitlist, num)
+            self.game(num, primary_bitlist, final_bitlist, 10)
+        else:
+            pass
 
     def facil(self):
         word = randomizer(4)
@@ -230,18 +292,6 @@ class MyApp(App):
         Builder.load_file("interface.kv")
         self.title = "R-Nonogram"
         return MyLayout()
-    
-    def on_start(self):
-        view = ModalView(size_hint=(None, None), size=(350, 500))
-        box = BoxLayout(orientation='vertical')
-        winLabel = Label(text="Bienvenido. Si nunca jugaste a esto, las reglas son sencillas!", text_size=(300, 150), valign="middle")
-        secLabel = Label(text="1: Los números en filas y columnas indican la cantidad de casilleros contiguos a presionar.", text_size=(300, 150), valign="middle")
-        terLabel = Label(text="Esas son las reglas :)", text_size=(300, 150), valign="middle")
-        box.add_widget(winLabel)
-        box.add_widget(secLabel)
-        box.add_widget(terLabel)
-        view.add_widget(box)
-        view.open()
 
 if __name__ == "__main__":
     MyApp().run()
