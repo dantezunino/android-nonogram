@@ -11,11 +11,12 @@ from kivy.utils import get_random_color
 import random
 import string
 
-__version__ = "1.2"
+__version__ = "1.5"
 
 action = ["O"]
 win_condition = [0]
 custom_table = [0]
+game = [""]
 
 def set_wincondition(bitlist):
     for num in bitlist:
@@ -32,6 +33,10 @@ def bit_sec(word, limit):
     while len(bit_list) > limit:
         bit_list.remove(bit_list[0])
     return bit_list
+
+def game_set(actual):
+    game.remove(game[0])
+    game.append(actual)
 
 def randomizer(big):
     random_bitholder = ""
@@ -120,12 +125,17 @@ def rem_text(a, tx):
 
 def compute(view, tx, btok):
     custom_table.remove(custom_table[0])
-    num = int(tx)
+    num = 0
+    if tx == "":
+        num = 0
+    else:
+        num = int(tx)
     custom_table.append(num)
     btok.text = "Dificultad: \n(" + str(num) + ")"
 
 
     view.dismiss()
+
 
 
 class MyLayout(Widget):
@@ -139,6 +149,7 @@ class MyLayout(Widget):
         self.ids.btn6.background_color = get_random_color()
         self.ids.btn7.background_color = get_random_color()
         self.ids.btn_x.background_color = get_random_color()
+        self.ids.btn_r.background_color = get_random_color()
 
     def back(self):
         self.ids.btn1.background_color = get_random_color()
@@ -150,6 +161,23 @@ class MyLayout(Widget):
         self.ids.btn7.background_color = get_random_color()
         self.ids.caruso.load_previous()
         self.ids.btn_x.background_color = get_random_color()
+        self.ids.btn_r.background_color = get_random_color()
+
+    def reDo(self):
+        print("Crap")
+        nom = game[0]
+        if nom == "bebe":
+            self.bebe()
+        if nom == "facil":
+            self.facil()
+        if nom == "normal":
+            self.normal()
+        if nom == "dificil":
+            self.dificil()
+        if nom == "muydificil":
+            self.muydificil()
+        if nom == "custom":
+            self.customOK()
 
     def victory(self):
         view = ModalView(size_hint=(None, None), size=(240, 180))
@@ -164,6 +192,7 @@ class MyLayout(Widget):
         view.open()
 
     def bebe(self):
+        game_set("bebe")
         word = randomizer(4)
         primary_bitlist = bit_sec(word, 16)
         set_wincondition(primary_bitlist)
@@ -171,10 +200,11 @@ class MyLayout(Widget):
         self.game(4, primary_bitlist, final_bitlist, 20)
 
     def custom(self):
+        game_set("custom")
         view = ModalView(size_hint=(0.9, 0.5))
         box = BoxLayout(orientation='vertical')
         r_box = GridLayout(cols=3)
-        tx = TextInput(text="0")
+        tx = TextInput(text="")
         okbtn = Button(text="OK")
         r_box.add_widget(Button(text="1", on_press=lambda a:add_text("1",tx)))
         r_box.add_widget(Button(text="2", on_press=lambda a:add_text("2",tx)))
@@ -185,9 +215,9 @@ class MyLayout(Widget):
         r_box.add_widget(Button(text="7", on_press=lambda a:add_text("7",tx)))
         r_box.add_widget(Button(text="8", on_press=lambda a:add_text("8",tx)))
         r_box.add_widget(Button(text="9", on_press=lambda a:add_text("9",tx)))
-        r_box.add_widget(Button(text="", background_color=(0.1,0.1,0.1,1), on_press=lambda a:rem_text("0",tx)))
+        r_box.add_widget(Button(text="-", background_color=(0.1,0.1,0.1,1), on_press=lambda a:rem_text("0",tx)))
         r_box.add_widget(Button(text="0", on_press=lambda a:add_text("0",tx)))
-        r_box.add_widget(Button(text="", background_color=(0.1,0.1,0.1,1), on_press=lambda a:rem_text("0",tx)))
+        r_box.add_widget(Button(text="-", background_color=(0.1,0.1,0.1,1), on_press=lambda a:rem_text("0",tx)))
         box.add_widget(tx)
         box.add_widget(okbtn)
         s_box = BoxLayout(orientation='horizontal')
@@ -198,7 +228,7 @@ class MyLayout(Widget):
         view.open()
 
     def customOK(self):
-        if custom_table[0] != 0:
+        if custom_table[0] != 0 and custom_table[0] != 1:
             num = custom_table[0]
             squarenum = num*num
             ran = round(squarenum/3, 0)
@@ -211,6 +241,7 @@ class MyLayout(Widget):
             pass
 
     def facil(self):
+        game_set("facil")
         word = randomizer(4)
         primary_bitlist = bit_sec(word, 25)
         set_wincondition(primary_bitlist)
@@ -218,6 +249,7 @@ class MyLayout(Widget):
         self.game(5, primary_bitlist, final_bitlist, 18)
     
     def normal(self):
+        game_set("normal")
         word = randomizer(12)
         primary_bitlist = bit_sec(word, 64)
         set_wincondition(primary_bitlist)
@@ -225,6 +257,7 @@ class MyLayout(Widget):
         self.game(8, primary_bitlist, final_bitlist, 16)
 
     def dificil(self):
+        game_set("dificil")
         word = randomizer(25)
         primary_bitlist = bit_sec(word, 100)
         set_wincondition(primary_bitlist)
@@ -232,19 +265,13 @@ class MyLayout(Widget):
         self.game(10, primary_bitlist, final_bitlist, 14)
     
     def muydificil(self):
+        game_set("muydificil")
         word = randomizer(30)
         primary_bitlist = bit_sec(word, 144)
         set_wincondition(primary_bitlist)
         final_bitlist = table_params(primary_bitlist, 12)
         self.game(12, primary_bitlist, final_bitlist, 12)
 
-    def estupido(self):
-        word = randomizer(33)
-        primary_bitlist = bit_sec(word, 225)
-        set_wincondition(primary_bitlist)
-        final_bitlist = table_params(primary_bitlist, 15)
-        self.game(15, primary_bitlist, final_bitlist, 10)
-    
     def clean(self):
         self.ids.proper_tabla.clear_widgets()
         self.ids.fil_label_row.clear_widgets()
@@ -255,6 +282,8 @@ class MyLayout(Widget):
             self.ids.button_x.state = 'normal'
             self.ids.button_o.state = 'down'
             self.ids.button_o.disabled = True
+            self.ids.button_o.background_color = (0.5,0,1,1)
+            self.ids.button_x.background_color = (1,1,1,1)
             self.ids.button_x.disabled = False
             action.remove(action[0])
             action.append("O")
@@ -263,6 +292,8 @@ class MyLayout(Widget):
             self.ids.button_o.state = 'normal'
             self.ids.button_x.state = 'down'
             self.ids.button_x.disabled = True
+            self.ids.button_o.background_color = (1,1,1,1)
+            self.ids.button_x.background_color = (0.5,0,1,1)
             self.ids.button_o.disabled = False
             action.remove(action[0])
             action.append("X")
@@ -290,7 +321,10 @@ class MyLayout(Widget):
             lbl = Label(text=text_C, font_size=sal)
             self.ids.col_label_row.add_widget(lbl)
             text_C = ""
-        self.ids.caruso.load_next()
+        if self.ids.caruso.index == 1:
+            self.ids.caruso.load_next()
+        else:
+            pass
 
 class MyApp(App):
     def build(self):
