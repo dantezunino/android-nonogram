@@ -8,46 +8,11 @@
             index:1  
             BoxLayout:
                 orientation: 'vertical'
-                Label: 
-                    size_hint: (1, 0.3)
-                    text: "Bienvenido."
-                    text_size: self.size
-                    valign: 'top'
-                    halign: 'center'
                 Label:
-                    size_hint: (1, 0.3)
-                    text: "Las reglas del juego son las siguientes:"
                     text_size: self.size
-                    valign: 'top'
+                    valign: 'middle'
                     halign: 'center'
-                Label:
-                    text: "1 - Cada número en fila indica la cantidad de casilleros de color continuos en esa fila. Por ejemplo <2 3> indica que en esa fila hay dos casilleros correctos primero, AL MENOS un espacio vacío y luego 3 casilleros correctos."
-                    text_size: self.size
-                    valign: 'top'
-                    halign: 'center'
-                Label:
-                    text: "2 - Cada número en columna indica lo mismo que lo de las filas, pero para las columnas."
-                    text_size: self.size
-                    size_hint: (1, 0.6)
-                    valign: 'top'
-                    halign: 'center'
-                Label:
-                    text: "3 - Para ganar hay que presionar TODOS los casilleros de color correctos."
-                    text_size: self.size
-                    size_hint: (1, 0.4)
-                    valign: 'top'
-                    halign: 'center'
-                Label:
-                    text: "4 - Para ayudarte puedes cambiar el input con el switch debajo del tablero. El O indica un casillero de color, y la X es un marcador para que sepas donde NO hay casillero de color."
-                    text_size: self.size
-                    size_hint: (1, 0.85)
-                    valign: 'top'
-                    halign: 'center'
-                Label:
-                    text: "Por la imposibilidad que presenta generar Nonogramas de forma aleatoria, sin intervención humana, más de una vez te ocurrirá que hay soluciones ambiguas, aunque sólo una sea correcta. No te desmoralices, no se puede perder en este juego. El dar con un casillero incorrecto se considera un mero miss-click :)"
-                    text_size: self.size
-                    valign: 'top'
-                    halign: 'center'  
+                    text:"Bienvenido.\n \n \nLas reglas del juego son las siguientes:\n \n1 - Cada número en fila indica la cantidad de casilleros de color continuos en esa fila. Por ejemplo <2 3> indica que en esa fila hay dos casilleros correctos primero, AL MENOS un espacio vacío y luego 3 casilleros correctos.\n \n 2 - Cada número en columna indica lo mismo que lo de las filas, pero para las columnas.\n \n 3 - Para ganar hay que presionar TODOS los casilleros de color correctos.\n \n 4 - Para ayudarte puedes cambiar el input con el switch debajo del tablero. El O indica un casillero de color, y la X es un marcador para que sepas donde NO hay casillero de color.\n \n \n Por la naturaleza de la generación aleatoria más de una vez te ocurrirá que hay soluciones ambiguas, aunque sólo una sea correcta. No te desmoralices, no se puede perder en este juego. El dar con un casillero incorrecto se considera un mero miss-click :)"
             BoxLayout:
                 orientation: 'vertical'
                 GridLayout:
@@ -135,8 +100,9 @@
                             id:button_o
                             text:"O"
                             disabled:True
-                            background_color:(0.5,0,1,1)
+                            background_color:(0.3,0,0.6,1)
                             on_release:root.toggleSim("O")
+                            background_disabled_normal:""
                         Button:
                             id:button_x
                             text:"X"

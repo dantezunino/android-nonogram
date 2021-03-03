@@ -164,7 +164,6 @@ class MyLayout(Widget):
         self.ids.btn_r.background_color = get_random_color()
 
     def reDo(self):
-        print("Crap")
         nom = game[0]
         if nom == "bebe":
             self.bebe()
@@ -204,7 +203,10 @@ class MyLayout(Widget):
         view = ModalView(size_hint=(0.9, 0.5))
         box = BoxLayout(orientation='vertical')
         r_box = GridLayout(cols=3)
-        tx = TextInput(text="")
+        lb1 = Button(text="", disabled=True, background_color=(0,0,0,1))
+        lb2 = Button(text="", disabled=True, background_color=(0,0,0,1))
+        tx = TextInput(text="", font_size=22, halign='center', readonly=True)
+        min_box = BoxLayout(orientation='vertical')
         okbtn = Button(text="OK")
         r_box.add_widget(Button(text="1", on_press=lambda a:add_text("1",tx)))
         r_box.add_widget(Button(text="2", on_press=lambda a:add_text("2",tx)))
@@ -215,10 +217,13 @@ class MyLayout(Widget):
         r_box.add_widget(Button(text="7", on_press=lambda a:add_text("7",tx)))
         r_box.add_widget(Button(text="8", on_press=lambda a:add_text("8",tx)))
         r_box.add_widget(Button(text="9", on_press=lambda a:add_text("9",tx)))
-        r_box.add_widget(Button(text="-", background_color=(0.1,0.1,0.1,1), on_press=lambda a:rem_text("0",tx)))
+        r_box.add_widget(Button(text="-", background_color=(0.1,0.1,0.1,1), on_press=lambda a:rem_text("",tx)))
         r_box.add_widget(Button(text="0", on_press=lambda a:add_text("0",tx)))
-        r_box.add_widget(Button(text="-", background_color=(0.1,0.1,0.1,1), on_press=lambda a:rem_text("0",tx)))
-        box.add_widget(tx)
+        r_box.add_widget(Button(text="-", background_color=(0.1,0.1,0.1,1), on_press=lambda a:rem_text("",tx)))
+        min_box.add_widget(lb1)
+        min_box.add_widget(tx)
+        min_box.add_widget(lb2)
+        box.add_widget(min_box)
         box.add_widget(okbtn)
         s_box = BoxLayout(orientation='horizontal')
         s_box.add_widget(box)
@@ -282,22 +287,24 @@ class MyLayout(Widget):
             self.ids.button_x.state = 'normal'
             self.ids.button_o.state = 'down'
             self.ids.button_o.disabled = True
-            self.ids.button_o.background_color = (0.5,0,1,1)
+            self.ids.button_o.background_color = (0.3,0,0.6,1)
+            self.ids.button_o.background_disabled_normal = ""
+            self.ids.button_x.background_disabled_normal = "atlas://data/images/defaulttheme/button_disabled"
             self.ids.button_x.background_color = (1,1,1,1)
             self.ids.button_x.disabled = False
             action.remove(action[0])
             action.append("O")
-            print(action[0])
         if val == "X":
             self.ids.button_o.state = 'normal'
             self.ids.button_x.state = 'down'
             self.ids.button_x.disabled = True
             self.ids.button_o.background_color = (1,1,1,1)
-            self.ids.button_x.background_color = (0.5,0,1,1)
+            self.ids.button_x.background_color = (0.3,0,0.6,1)
+            self.ids.button_x.background_disabled_normal = ""
+            self.ids.button_o.background_disabled_normal = "atlas://data/images/defaulttheme/button_disabled"
             self.ids.button_o.disabled = False
             action.remove(action[0])
             action.append("X")
-            print(action[0])
 
     def game(self, cols, primary_bitlist, final_bitlist, sal):
         self.clean()
