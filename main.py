@@ -29,9 +29,15 @@ def bit_sec(word, limit):
     for letter in word:
         bits_bins = (bin(ord(letter))[2:])
         for binbin in bits_bins:
-            bit_list.append(binbin)
+            randi = random.randint(0,2)
+            if randi == 0:
+                print(randi)
+                bit_list.append("1")
+            else:
+                bit_list.append(binbin)
     while len(bit_list) > limit:
         bit_list.remove(bit_list[0])
+    print(bit_list)
     return bit_list
 
 def game_set(actual):
@@ -41,7 +47,12 @@ def game_set(actual):
 def randomizer(big):
     random_bitholder = ""
     for letter in range(big):
-        random_bitholder += random.choice(string.ascii_letters)
+        randi = random.randint(0,2)
+        if randi < 2:
+            random_bitholder += str(random.randint(0,1)) + random.choice(string.ascii_letters)
+        else:
+            random_bitholder += random.choice(string.ascii_letters)
+    print(random_bitholder)
     return random_bitholder
 
 def table_params(primary_bitlist, table_root):
