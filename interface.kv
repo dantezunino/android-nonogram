@@ -57,14 +57,17 @@
                 BoxLayout:
                     size: root.width, root.height
                     orientation: 'vertical'
+                    Label:
+                        size_hint: (1, 0.05)
+                        text:""
                     BoxLayout:
                         orientation: 'vertical'
                         BoxLayout:
-                            size_hint: (1, 0.2)
+                            size_hint: (1, 0.15)
                             orientation: 'horizontal'
                             BoxLayout:
                                 orientation: 'vertical'
-                                size_hint: (0.2, 1)
+                                size_hint: (0.15, 1)
                                 Button:
                                     id:btn_r
                                     text:"R"
@@ -76,18 +79,18 @@
                             BoxLayout:
                                 orientation:'horizontal'
                                 id:col_label_row
-                                size_hint: (0.8, 1)
+                                size_hint: (0.75, 1)
                         BoxLayout:
-                            size_hint: (1, 0.8)
+                            size_hint: (1, 0.75)
                             orientation: 'horizontal'
                             BoxLayout:
                                 orientation: 'vertical'
                                 id:fil_label_row
-                                size_hint: (0.2, 1)
+                                size_hint: (0.15, 1)
                             GridLayout:
                                 id:proper_tabla
                                 cols:5
-                                size_hint: (0.8, 1)
+                                size_hint: (0.75, 1)
                             
                     Label:
                         size_hint: (1, 0.05)
@@ -107,5 +110,8 @@
                             id:button_x
                             text:"X"
                             on_release:root.toggleSim("X")
+                    Label:
+                        size_hint: (1, 0.05)
+                        text:""
 
 <Proper_Tabla>

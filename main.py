@@ -31,13 +31,11 @@ def bit_sec(word, limit):
         for binbin in bits_bins:
             randi = random.randint(0,2)
             if randi == 0:
-                print(randi)
                 bit_list.append("1")
             else:
                 bit_list.append(binbin)
     while len(bit_list) > limit:
         bit_list.remove(bit_list[0])
-    print(bit_list)
     return bit_list
 
 def game_set(actual):
@@ -52,7 +50,6 @@ def randomizer(big):
             random_bitholder += str(random.randint(0,1)) + random.choice(string.ascii_letters)
         else:
             random_bitholder += random.choice(string.ascii_letters)
-    print(random_bitholder)
     return random_bitholder
 
 def table_params(primary_bitlist, table_root):
@@ -334,9 +331,10 @@ class MyLayout(Widget):
         for j in range(cols):
             prov_text_C = final_bitlist[0][j]
             text_C = ""
+            sale = sal-3
             for letter in prov_text_C:
                 text_C += letter + "\n"
-            lbl = Label(text=text_C, font_size=sal)
+            lbl = Label(text=text_C, font_size=sale)
             self.ids.col_label_row.add_widget(lbl)
             text_C = ""
         if self.ids.caruso.index == 1:
